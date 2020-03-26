@@ -14,7 +14,7 @@ buzzer.elf: ${COMMON_OBJECTS} buzzer.o buzzerMain.o ../lib/libTimer.a
 	${CC} ${CFLAGS} -o $@ $^
 
 load: buzzer.elf
-	msp430loader.sh blink.elf
+	msp430loader.sh buzzer.elf
 
 clean:
 	rm -f *.o *.elf
