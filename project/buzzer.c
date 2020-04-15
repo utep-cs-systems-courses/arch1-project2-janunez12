@@ -2,8 +2,9 @@
 #include "buzzer.h"
 #include <msp430.h>
 
-static int counterSuperMario = 0;    //Counter to keep track of the notes in SuperMario song
-static int counterTitanic = 0;   //Counter to keep track of the notes in Titanic song
+static int counterSuperMario = 0; 
+static int counterTitanic = 0;   
+static int counterAladdin = 0;
 
 void buzzer_init(){
   /*
@@ -128,6 +129,68 @@ void titanic(){
   }
 }
 
+void aladdin(){
+
+  switch(counterAladdin){
+  case 0:
+  case 3:
+  case 6:
+  case 9:
+  case 11:
+  case 15:
+  case 26:
+  case 27:
+  case 31:
+  case 37:
+  case 38:
+  case 39:
+  case 45:
+  case 50: buzzer_set_period(506);counterAladdin++;break;  //B5 Fq 987.77
+  case 1:
+  case 7:
+  case 12:
+  case 13:
+  case 16:
+  case 18:
+  case 24:
+  case 35:
+  case 51:
+  case 55: buzzer_set_period(568); if(counterAladdin==55){counterAladdin = 0;} else{counterAladdin++;}; break;  //A5 Fq 880.00
+  case 2:
+  case 8:
+  case 28:
+  case 32:
+  case 36:
+  case 40: buzzer_set_period(478); counterAladdin++; break; //C6 note Fq 1046.5
+  case 4:
+  case 10:
+  case 14:
+  case 19:
+  case 21:
+  case 25:
+  case 49:
+  case 52:
+  case 54: buzzer_set_period(638); counterAladdin++; break; //G5 note Fq 783.99
+  case 5: buzzer_set_period(851); counterAladdin++; break; //D5 note Fq 587.33
+  case 17:
+  case 20:
+  case 23:
+  case 53: buzzer_set_period(676);counterAladdin++; break; //F# Fq 739.99
+  case 22: buzzer_set_period(758); counterAladdin++; break; //E5 note Fq 659.25
+  case 29:
+  case 33:
+  case 43: buzzer_set_period(379); counterAladdin++; break; //E6 note Fq 1318.51
+  case 30:
+  case 34:
+  case 41:
+  case 44:
+  case 48: buzzer_set_period(426);counterAladdin++;break;  //D6 Fq 1174.66
+  case 42:
+  case 46: buzzer_set_period(338);counterAladdin++;break;  //F#6 Fq 1479.98
+  case 47: buzzer_set_period(319); counterAladdin++; break; //G6 note Fq 1567.98
+  }
+}
+    
 void buzzer_set_period(short cycles){
   CCR0 = cycles;
   CCR1 = cycles >> 1; //one half cycle
